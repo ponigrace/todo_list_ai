@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO App</title>
+</head>
+<body>
+    <section style="margin:2rem;">
+        <form action="{% url 'create_todo' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Please enter the TODO title" style="width: 500px;">
+            <button type="submit">Add</button>
+        </form>
+        {% if error %}
+            <em style="color:red">{{ error }}</em>
+        {% endif %}
+    </section>
+    <section style="margin:2rem;">
+        <h2>Todo List</h2>
+        <ul>
+            {% for todo in todos %}
+                <li style="margin-bottom:1rem; margin-right:20rem;">
+                    <strong>{{ todo.title }}</strong> - {% if todo.status %}Completed{% else %}Not Completed{% endif %}<br/>
+                    <em>{{ todo.llm_response }}</em>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>
